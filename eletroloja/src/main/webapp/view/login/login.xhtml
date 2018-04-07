@@ -14,13 +14,14 @@
 		href="#{facesContext.externalContext.requestContextPath}/resources/img/raio.png" />
 </h:head>
 
-<h:body style="background-size: 300px 100px; background-image: url(/eletroloja/resources/img/background2.png);background-position: 50% -200%!important;">
+<h:body
+	style="background-size: 300px 100px; background-image: url(/eletroloja/resources/img/background2.png);background-position: 50% -200%!important;">
 	<h:form>
 		<div class="login">
 			<div id="frmLogin">
 				<p:messages autoUpdate="true" showDetail="true" />
 				<p:panel header="EletroLoja - Login">
-					<h:panelGrid columns="2" style="width: 100%;">
+					<h:panelGrid columns="2">
 						<p:outputLabel value="Login:" for="login" />
 						<p:inputText id="login" value="#{loginBean.usuario.login}"
 							style="width: 100%;" />

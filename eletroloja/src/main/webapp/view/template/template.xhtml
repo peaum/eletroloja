@@ -1,36 +1,33 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"   
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:head>
 	<meta charset="UTF-8" />
 	<title>Loja de Eletrodomésticos - Menu</title>
-	<!-- <link type="text/css" rel="stylesheet"
-		href="#{facesContext.externalContext.requestContextPath}/resources/css/estilo.css" /> -->
+	<link type="text/css" rel="stylesheet"
+		href="#{facesContext.externalContext.requestContextPath}/resources/css/estilo.css" />
 	<link rel="shortcut icon" type="image/png"
 		href="#{facesContext.externalContext.requestContextPath}/resources/img/raio.png" />
 </h:head>
 <body>
-	<h:form id="frmMenu">
+	<div id="header">
+		<ui:insert name="header">
+			<ui:include src="/view/template/header.xhtml" />
+		</ui:insert>
+	</div>
 
-		<div id="header">
-			<ui:insert name="header">
-				<ui:include src="/view/template/header.xhtml" />
-			</ui:insert>
-		</div>
+	<div id="content">
+		<ui:insert name="content">
+			<ui:include src="/view/template/basiccontent.xhtml" />
+		</ui:insert>
+	</div>
 
-		<div id="content">
-			<ui:insert name="content">
-				<ui:include src="/view/template/basiccontent.xhtml" />
-			</ui:insert>
-		</div>
-
-		<div id="footer">
-			<ui:insert name="footer">
-				<ui:include src="/view/template/footer.xhtml" />
-			</ui:insert>
-		</div>
-	</h:form>
+	<div id="footer">
+		<ui:insert name="footer">
+			<ui:include src="/view/template/footer.xhtml" />
+		</ui:insert>
+	</div>
 </body>
 </html>
