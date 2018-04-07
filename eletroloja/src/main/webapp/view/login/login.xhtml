@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<meta charset="UTF-8" />
+	<title>Projeto Web - Login</title>
+	<meta name="viewport"
+		content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+	<link type="text/css" rel="stylesheet"
+		href="#{facesContext.externalContext.requestContextPath}/resources/css/estilo.css" />
+	<link rel="shortcut icon" type="image/png"
+		href="#{facesContext.externalContext.requestContextPath}/resources/img/raio.png" />
+</h:head>
+
+<h:body style="background-size: 300px 100px; background-image: url(/eletroloja/resources/img/background2.png);background-position: 50% -200%!important;">
+	<h:form>
+		<div class="login">
+			<div id="frmLogin">
+				<p:messages autoUpdate="true" showDetail="true" />
+				<p:panel header="EletroLoja - Login">
+					<h:panelGrid columns="2" style="width: 100%;">
+						<p:outputLabel value="Login:" for="login" />
+						<p:inputText id="login" value="#{loginBean.usuario.login}"
+							style="width: 100%;" />
+
+						<p:outputLabel value="Senha:" for="senha" />
+						<p:password id="senha" value="#{loginBean.usuario.senha}"
+							style="width: 100%;" />
+
+						<p:spacer />
+						<p:commandButton styleClass="right" value="Confirma"
+							action="#{loginBean.loga}" process="@form" update="@form" />
+						<p:spacer />
+
+					</h:panelGrid>
+				</p:panel>
+			</div>
+		</div>
+	</h:form>
+</h:body>
+
+</html>

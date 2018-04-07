@@ -1,0 +1,6 @@
+<beans>
+	<interceptors>
+		<class>br.com.fsma.loja.eletrodomesticos.tx.GerenciadorDeTransacao
+		</class>
+	</interceptors>
+</beans>

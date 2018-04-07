@@ -1,0 +1,33 @@
+/* body {
+	background: #f2f2f2;
+	background-image: url(/eletroloja/resources/img/background3.png);
+	background-repeat: no-repeat;
+	background-position: 50% -25%;
+}
+
+.login {
+	width: 100%;
+	left: 0px;
+	height: 10.25em;
+	border: 1px solid #ccc;
+	background-color: #f3f3f3;
+}
+
+.right {
+    position: absolute;
+    right: 5px;
+}
+
+@media only screen and (min-width: 600px) {
+	.login {
+		position: fixed;
+		top: 50%;
+		left: 50%;
+		width: 30em;
+		margin-top: -5.125em; set to a negative number 1/2 of your height
+		margin-left: -15em; set to a negative number 1/2 of your width
+	}
+} */
+.button {
+	
+}
