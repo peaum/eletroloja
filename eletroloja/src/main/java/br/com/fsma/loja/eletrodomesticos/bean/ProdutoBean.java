@@ -10,7 +10,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.servlet.http.HttpSession;
 
 import br.com.fsma.loja.eletrodomesticos.modelo.dao.ProdutoDao;
 import br.com.fsma.loja.eletrodomesticos.modelo.negocio.Produto;
