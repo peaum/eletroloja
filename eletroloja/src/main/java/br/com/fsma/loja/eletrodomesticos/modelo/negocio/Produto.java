@@ -33,7 +33,7 @@ public class Produto implements Serializable {
 	private String modelo;
 	
 	@Column(name = "preco", nullable = false, updatable=true)
-	private BigDecimal preco;
+	private BigDecimal preco = new BigDecimal(0);
 	
 	@OneToMany(mappedBy="produto")
 	private List<Item> itens;
@@ -78,7 +78,7 @@ public class Produto implements Serializable {
 		return preco;
 	}
 
-	public void setPreco(Double preco) {
+	public void setPreco(double preco) {
 		this.preco = new BigDecimal(preco);
 	}
 

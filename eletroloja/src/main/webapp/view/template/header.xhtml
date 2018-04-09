@@ -11,21 +11,21 @@
 				<p:menubar>
 					<p:menuitem
 						rendered="#{loginBean.usuario.role eq 'vendedor' or loginBean.usuario.role eq 'supervisor'}"
-						value="Nova Venda" src="#" />
+						value="Nova Venda" url="#" />
 					<p:menuitem rendered="#{loginBean.usuario.role eq 'vendedor'}"
-						value="Lista de Vendas" src="#" />
+						value="Lista de Vendas" url="#" />
 					<p:menuitem
 						rendered="#{loginBean.usuario.role eq 'vendedor' or loginBean.usuario.role eq 'supervisor'}"
-						value="Lista de Clientes" src="#" />
+						value="Lista de Clientes" url="#" />
 					<p:menuitem rendered="#{loginBean.usuario.role eq 'estoquista'}"
-						value="Novo Produto" src="#{produtoBean.cadProduto}" process="@form" update="@form"/>
+						value="Novo Produto" url="#{produtoBean.cadproduto}" process="@form" update="@form"/>
 					<p:menuitem
 						rendered="#{loginBean.usuario.role eq 'estoquista' or loginBean.usuario.role eq 'supervisor'}"
-						value="Lista de Produtos" src="#" />
+						value="Lista de Produtos" url="#{produtoBean.listaproduto}" process="@form" update="@form"/>
 					<p:menuitem rendered="#{loginBean.usuario.role eq 'vendedor'}"
-						value="Efetuar Troca" src="#" />
+						value="Efetuar Troca" url="#" />
 					<p:menuitem rendered="#{loginBean.usuario.role eq 'supervisor'}"
-						value="Lista de Produtos Defeituosos" src="#" />
+						value="Lista de Produtos Defeituosos" url="#" />
 				</p:menubar>
 			</div>
 		</h:form>

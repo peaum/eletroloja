@@ -28,6 +28,8 @@ public class Usuario implements Serializable {
 	@Column(name = "senha", length = 50, nullable = false)
 	private String senha;
 	private LocalDateTime dataDoUltimoAcesso;
+	@Column(name="role", length = 50, nullable = false)
+	private String role;
 
 	public Long getId() {
 		return id;
@@ -67,6 +69,14 @@ public class Usuario implements Serializable {
 
 	public void setDataDoUltimoAcesso(LocalDateTime dataDoUltimoAcesso) {
 		this.dataDoUltimoAcesso = dataDoUltimoAcesso;
+	}
+	
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
 	}
 
 	@Override

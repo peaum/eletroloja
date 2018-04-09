@@ -55,5 +55,4 @@ public class DAO<T> implements Serializable {
 
 		return lista;
 	}
-
 }

@@ -3,7 +3,7 @@ body {
 	background-size: 300px 100px;
 	background-image: url(/eletroloja/resources/img/background3.png);
 	background-repeat: no-repeat;
-	background-position: 50% 150%;
+	background-position: 40em 18em;
 }
 
 .login {
@@ -12,6 +12,11 @@ body {
 	height: 10.25em;
 	border: 1px solid #ccc;
 	background-color: #f3f3f3;
+}
+
+.cadProduto {
+	position: fixed;
+	height: 10.25em;
 }
 
 .right {
@@ -27,6 +32,9 @@ body {
 		width: 30em;
 		margin-top: -5.125em;
 		margin-left: -15em;
+	}
+	.cadProduto {
+		left: 50px;
 	}
 }
 .button {

@@ -33,7 +33,7 @@ public class UsuarioDao implements Serializable {
 		
 		TypedQuery<Usuario> query = em.createQuery(
 				  " select u from Usuario u "
-				+ " where u.email = :pLogin and u.senha = :pSenha", Usuario.class);
+				+ " where u.login = :pLogin and u.senha = :pSenha", Usuario.class);
 		
 		query.setParameter("pLogin", usuario.getLogin());
 		query.setParameter("pSenha", usuario.getSenha());
@@ -84,10 +84,10 @@ public class UsuarioDao implements Serializable {
 		return dao.listaTodosPaginada(firstResult, maxResults);
 	}
 
-	public Usuario buscaPorEmail(String email) {
-		String jpql = " select u from Usuario u where u.email = :pEmail";
+	public Usuario buscaPorLogin(String login) {
+		String jpql = " select u from Usuario u where u.login = :pLogin";
 		TypedQuery<Usuario> query = em.createQuery(jpql, Usuario.class);
-		query.setParameter("pEmail", email.trim().toLowerCase());
+		query.setParameter("pLogin", login.trim().toLowerCase());
 		try {
 			return query.getSingleResult();
 		} catch (NoResultException ex) {
