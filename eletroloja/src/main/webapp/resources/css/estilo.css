@@ -6,6 +6,12 @@ body {
 	background-position: 40em 18em;
 }
 
+h1 {
+	padding-bottom: 9px;
+	margin: 40px 10px 20px;
+	border-bottom: 1px solid #95b7b7;
+}
+
 .login {
 	width: 100%;
 	left: 0px;
@@ -29,9 +35,9 @@ body {
 		position: fixed;
 		top: 50%;
 		left: 50%;
-		width: 30em;
+		width: 20em;
 		margin-top: -5.125em;
-		margin-left: -15em;
+		margin-left: -10em;
 	}
 	.cadProduto {
 		left: 50px;

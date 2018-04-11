@@ -11,7 +11,7 @@
 				<p:menubar>
 					<p:menuitem
 						rendered="#{loginBean.usuario.role eq 'vendedor' or loginBean.usuario.role eq 'supervisor'}"
-						value="Nova Venda" url="#" />
+						value="Nova Venda" url="#{vendaBean.cadVenda}" />
 					<p:menuitem rendered="#{loginBean.usuario.role eq 'vendedor'}"
 						value="Lista de Vendas" url="#" />
 					<p:menuitem
@@ -26,6 +26,8 @@
 						value="Efetuar Troca" url="#" />
 					<p:menuitem rendered="#{loginBean.usuario.role eq 'supervisor'}"
 						value="Lista de Produtos Defeituosos" url="#" />
+						
+					<p:menuitem value="Quit" style="right: 15px;position: absolute;" action="#{loginBean.desloga}" process="@this" icon="ui-icon-close" />
 				</p:menubar>
 			</div>
 		</h:form>

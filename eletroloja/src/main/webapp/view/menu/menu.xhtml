@@ -10,11 +10,6 @@
 	<ui:composition template="/view/template/template.xhtml">
 		<ui:define name="content">
 			<h1>Usuário: #{loginBean.usuario.login}</h1>
-			<p:panel header="Loja de Eletrodomésticos - Menu"
-				style="width: 400px;">
-				<p:commandButton value="Desloga" action="#{loginBean.desloga}"
-					process="@this" />
-			</p:panel>
 		</ui:define>
 	</ui:composition>
 </h:body>

@@ -26,6 +26,9 @@ public class Troca implements Serializable {
 	
 	@Column(name = "data_troca", nullable = false, updatable=false)
 	private LocalDate dataTroca;
+	
+	@Column(name = "numero_serie", length = 20, nullable = false, unique = true, updatable=false)
+	private String numeroSerie;
 
 	@ManyToOne
 	@JoinColumn(name="cliente_id", nullable=false, updatable=false)
@@ -48,6 +51,22 @@ public class Troca implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getNumeroSerie() {
+		return numeroSerie;
+	}
+
+	public void setNumeroSerie(String numeroSerie) {
+		this.numeroSerie = numeroSerie;
+	}
+
+	public String getMotivo() {
+		return motivo;
+	}
+
+	public void setMotivo(String motivo) {
+		this.motivo = motivo;
 	}
 
 	public LocalDate getDataTroca() {

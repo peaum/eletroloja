@@ -33,7 +33,7 @@ public class Produto implements Serializable {
 	private String modelo;
 	
 	@Column(name = "preco", nullable = false, updatable=true)
-	private BigDecimal preco = new BigDecimal(0);
+	private BigDecimal preco = new BigDecimal("0.001");
 	
 	@OneToMany(mappedBy="produto")
 	private List<Item> itens;
@@ -51,7 +51,7 @@ public class Produto implements Serializable {
 	}
 
 	public void setNome(String nome) {
-		this.nome = nome;
+		this.nome = nome.toUpperCase();
 	}
 	
 	public String getMarca() {
@@ -59,7 +59,7 @@ public class Produto implements Serializable {
 	}
 
 	public void setMarca(String marca) {
-		this.marca = marca;
+		this.marca = marca.toUpperCase();
 	}
 
 	public String getModelo() {
@@ -67,19 +67,15 @@ public class Produto implements Serializable {
 	}
 
 	public void setModelo(String modelo) {
-		this.modelo = modelo;
+		this.modelo = modelo.toUpperCase();
 	}
 	
-	public double getPreco() {
-		return preco.doubleValue();
-	}
-	
-	public BigDecimal getBDPreco() {
-		return preco;
+	public BigDecimal getPreco() {
+		return this.preco;
 	}
 
-	public void setPreco(double preco) {
-		this.preco = new BigDecimal(preco);
+	public void setPreco(BigDecimal preco) {
+		this.preco = preco;
 	}
 
 	@Override
@@ -107,4 +103,8 @@ public class Produto implements Serializable {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return nome + " - " + modelo + " (" + marca + ")";
+	}
 }
