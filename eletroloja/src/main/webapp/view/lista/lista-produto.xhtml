@@ -12,30 +12,41 @@
 
 			<h:form>
 				<p:growl id="growl" showDetail="true" sticky="true" />
-				<h1
-					style="padding-bottom: 9px; margin: 40px 10px 20px; border-bottom: 1px solid #95b7b7;">
+				<h1>
 					Lista de Produto</h1>
-					<p:dataTable var="produto" value="#{produtoBean.produtos}" rows="10"
-						paginator="true"
-						paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-						rowsPerPageTemplate="5,10,15">
-						<p:column headerText="Nome">
-							<h:outputText value="#{produto.nome}" />
-						</p:column>
+				<p:dataTable id="tbl" var="produto" value="#{produtoBean.produtos}"
+					rows="10" paginator="true" paginatorPosition="top"
+					paginatorTemplate="{paginatorTopLeft} {CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {Exporters}"
+					rowsPerPageTemplate="5,10,15">
 
-						<p:column headerText="Marca">
-							<h:outputText value="#{produto.marca}" />
-						</p:column>
+					<f:facet name="{Exporters}" >
+						<h:commandLink>
+							<p:graphicImage name="/img/pdf.png" width="24" style="right: 15px;position: absolute;" />
+							<p:dataExporter type="pdf" target="tbl" fileName="produtos" />
+						</h:commandLink>
+					</f:facet>
 
-						<p:column headerText="Modelo">
-							<h:outputText value="#{produto.modelo}" />
-						</p:column>
+					<f:facet name="{paginatorTopLeft}">
+						<p:commandButton type="button" icon="fa fa-refresh" />
+					</f:facet>
 
-						<p:column headerText="Preco (BRL)">
-							<h:outputText value="#{produto.preco}" />
-						</p:column>
+					<p:column sortBy="#{produto.nome}" headerText="Nome">
+						<h:outputText value="#{produto.nome}" />
+					</p:column>
 
-					</p:dataTable>
+					<p:column sortBy="#{produto.marca}" headerText="Marca">
+						<h:outputText value="#{produto.marca}" />
+					</p:column>
+
+					<p:column sortBy="#{produto.modelo}" headerText="Modelo">
+						<h:outputText value="#{produto.modelo}" />
+					</p:column>
+
+					<p:column sortBy="#{produto.preco}" headerText="Preco (BRL)">
+						<h:outputText value="#{produto.preco}" />
+					</p:column>
+
+				</p:dataTable>
 			</h:form>
 
 		</ui:define>

@@ -24,10 +24,10 @@ public class Cliente implements Serializable {
 	private Long id;
 	
 	@Column(name = "nome", length = 50, nullable = false, updatable=false)
-	private String nome;
+	private String nome = "";
 
 	@Column(name = "endereco", length = 50, nullable = false, updatable=true)
-	private String endereco;
+	private String endereco = "";
 	
 	@Column(name = "cpf", length = 11, nullable = false, unique = true, updatable=false)
 	private String cpf;
@@ -49,9 +49,17 @@ public class Cliente implements Serializable {
 	public String getNome() {
 		return nome;
 	}
+	
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf.replaceAll("[\\D]", "");
+	}
 
 	public void setNome(String nome) {
-		this.nome = nome;
+		this.nome = nome.toUpperCase();
 	}
 
 	public String getEndereco() {
@@ -59,7 +67,7 @@ public class Cliente implements Serializable {
 	}
 
 	public void setEndereco(String endereco) {
-		this.endereco = endereco;
+		this.endereco = endereco.toUpperCase();
 	}
 
 	public List<Troca> getTrocas() {
@@ -102,5 +110,4 @@ public class Cliente implements Serializable {
 			return false;
 		return true;
 	}
-	
 }

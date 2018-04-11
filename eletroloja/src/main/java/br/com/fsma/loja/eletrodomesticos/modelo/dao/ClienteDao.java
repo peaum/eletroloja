@@ -28,10 +28,9 @@ public class ClienteDao implements Serializable {
 	public boolean existe(Cliente cliente) {
 		TypedQuery<Cliente> query = em.createQuery(
 				  " select c from Cliente c"
-				+ " where c.nome = :cNome and c.endereco = :cEndereco", Cliente.class);
+				+ " where c.cpf = :cCpf", Cliente.class);
 		
-		query.setParameter("cNome", cliente.getNome());
-		query.setParameter("cEndereco", cliente.getEndereco());
+		query.setParameter("cCpf", cliente.getCpf());
 		
 		try {
 			@SuppressWarnings("unused")
@@ -72,6 +71,17 @@ public class ClienteDao implements Serializable {
 		query.setParameter("cNome", nome.trim().toLowerCase());
 		try {
 			return query.getResultList();
+		} catch (NoResultException ex) {
+			return null;
+		}
+	}
+	
+	public Cliente buscaPorCpf(String cpf) {
+		String jpql = " select c from Cliente c where c.cpf = :cCpf";
+		TypedQuery<Cliente> query = em.createQuery(jpql, Cliente.class);
+		query.setParameter("cCpf", cpf);
+		try {
+			return query.getSingleResult();
 		} catch (NoResultException ex) {
 			return null;
 		}

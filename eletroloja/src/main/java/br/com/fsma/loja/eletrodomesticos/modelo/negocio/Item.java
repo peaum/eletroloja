@@ -20,21 +20,21 @@ public class Item implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id", updatable=false)
+	@Column(name = "id", updatable = false)
 	private Long id;
-	
-	@Column(name = "numero_serie", length = 20, nullable = false, unique = true, updatable=false)
-	private String numeroSerie;
-	
+
 	@ManyToOne
-	@JoinColumn(name="venda_id")
+	@JoinColumn(name = "venda_id")
 	private Venda venda;
-	
+
+	@Column(name = "quantidade", nullable = false)
+	private int quantidade = 1;
+
 	@ManyToOne
-	@JoinColumn(name="produto_id", nullable=false)
+	@JoinColumn(name = "produto_id", nullable = false)
 	private Produto produto;
-	
-	@OneToOne(mappedBy="itemVenda")
+
+	@OneToOne(mappedBy = "itemVenda")
 	private Troca troca;
 
 	public Long getId() {
@@ -45,12 +45,12 @@ public class Item implements Serializable {
 		this.id = id;
 	}
 
-	public String getNumeroSerie() {
-		return numeroSerie;
+	public int getQuantidade() {
+		return quantidade;
 	}
 
-	public void setNumeroSerie(String numeroSerie) {
-		this.numeroSerie = numeroSerie;
+	public void setQuantidade(int quantidade) {
+		this.quantidade = quantidade;
 	}
 
 	public Venda getVenda() {
