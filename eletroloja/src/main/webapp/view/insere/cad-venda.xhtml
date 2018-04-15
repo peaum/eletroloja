@@ -11,27 +11,32 @@
 		<ui:define name="content">
 
 			<h:form>
-				<p:growl id="growl" showDetail="true" sticky="true" />
+				<p:growl id="growl" life="2200" showDetail="true" />
 				<h1>Cadastro de Venda</h1>
 				<div class="cadVenda">
+					<p:commandButton styleClass="right" value="Finalizar Venda"
+						update="@form" process="@form"
+						actionListener="#{vendaBean.finalizaVenda}" />
+					<BR /> <BR />
 					<p:panel header="Cliente">
 						<h:panelGrid columns="2">
 							<p:outputLabel value="CPF:" for="cpfCliente" />
-							<p:inputMask mask="999.999.999-99" id="cpfCliente"
+							<p:inputMask required="true" mask="999.999.999-99" id="cpfCliente"
 								value="#{vendaBean.cliente.cpf}" style="width: 100%;">
 								<p:ajax event="blur" update="@form"
 									listener="#{vendaBean.buscaCliente}" />
 							</p:inputMask>
 
 							<p:outputLabel value="Nome:" for="nomeCliente" />
-							<p:inputText id="nomeCliente" value="#{vendaBean.cliente.nome}"
+							<p:inputText required="true" id="nomeCliente" value="#{vendaBean.cliente.nome}"
 								style="width: 100%;" />
 
 							<p:outputLabel value="Endereco:" for="endCliente" />
-							<p:inputText id="endCliente"
+							<p:inputText required="true" id="endCliente"
 								value="#{vendaBean.cliente.endereco}" style="width: 100%;" />
 						</h:panelGrid>
 					</p:panel>
+					<BR />
 					<p:panel header="Itens">
 						<p:toolbar>
 							<f:facet name="right">
@@ -55,25 +60,32 @@
 					</p:panel>
 				</div>
 
-				<p:dialog header="Novo Item" widgetVar="dlg" height="150px" resizable="false">
+				<p:dialog header="Novo Item" widgetVar="dlg" height="150px"
+					resizable="false" modal="true" showEffect="fade" hideEffect="fade">
 					<h:panelGrid columns="2" cellpadding="5">
 						<h:outputLabel for="produtos" value="Produto: " />
-						<p:selectOneMenu id="produtos" value="#{vendaBean.item.produto}"
+						<p:selectOneMenu id="produtos" value="#{vendaBean.item.produto}" converter="produtoConverter" 
 							effect="fade" var="p" filter="true" filterMatchMode="contains">
 							<f:selectItems value="#{vendaBean.produtos}" var="produto"
-								itemLabel="#{produto}" itemValue="#{produto}" />
+								itemLabel="#{produto}" 
+								itemValue="#{p}" />
 							<p:column>
 								<h:outputText value="#{p}" />
 							</p:column>
 						</p:selectOneMenu>
 						<h:outputLabel value="Qtd: " for="qtd" />
 						<p:spinner min="1" id="qtd" value="#{vendaBean.item.quantidade}" />
-						<p:spacer/>
+						<p:spacer />
 						<f:facet name="footer">
-							<p:commandButton styleClass="right"  value="Incluir"
+							<p:commandButton styleClass="right" value="Incluir"
 								update="@form" actionListener="#{vendaBean.insereItem}" />
 						</f:facet>
 					</h:panelGrid>
+				</p:dialog>
+				<p:dialog header="Novo Cliente" widgetVar="dlgc" height="150px"
+					modal="true" showEffect="fade" hideEffect="fade" resizable="false"
+					visible="#{vendaBean.nvCliente}">
+					
 				</p:dialog>
 			</h:form>
 		</ui:define>

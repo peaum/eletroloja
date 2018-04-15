@@ -41,6 +41,10 @@ public class ClienteDao implements Serializable {
 		}
 	}
 	
+	public boolean naoExiste(Cliente cliente) {
+		return !existe(cliente);
+	}
+	
 	public void adiciona(Cliente cliente) {
 		dao.adiciona(cliente);
 	}

@@ -17,6 +17,12 @@
 	<!-- Lista de dependências do projeto -->
 	<dependencies>
 
+		<dependency>
+			<groupId>br.com.fsma</groupId>
+			<artifactId>utils</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+
 		<!-- JSF API -->
 		<!-- https://mvnrepository.com/artifact/com.sun.faces/jsf-api/2.2.14 -->
 		<dependency>

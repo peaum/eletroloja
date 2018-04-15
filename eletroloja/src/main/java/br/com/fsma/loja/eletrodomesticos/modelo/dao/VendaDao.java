@@ -4,13 +4,17 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 
 import br.com.fsma.loja.eletrodomesticos.modelo.negocio.Venda;
 
+@Named
+@RequestScoped
 public class VendaDao implements Serializable {
 	
 	private static final long serialVersionUID = 1L;

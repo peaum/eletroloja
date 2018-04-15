@@ -12,22 +12,20 @@
 
 			<h:form>
 				<p:growl id="growl" showDetail="true" sticky="true" />
-				<h1>
-					Lista de Produto</h1>
-				<p:dataTable id="tbl" var="produto" value="#{produtoBean.produtos}"
-					rows="10" paginator="true" paginatorPosition="top"
-					paginatorTemplate="{paginatorTopLeft} {CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {Exporters}"
-					rowsPerPageTemplate="5,10,15">
+				<h1>Lista de Produto</h1>
+				<p:dataTable id="tbl" selectionMode="single"
+					value="#{produtoBean.produtos}" var="produto"
+					selection="#{produtoBean.produto}" rows="10" paginator="true"
+					paginatorPosition="top" rowKey="#{produto.id}"
+					paginatorTemplate=" {CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {Exporters}"
+					rowsPerPageTemplate="5,10,15,25,50">
 
-					<f:facet name="{Exporters}" >
+					<f:facet name="{Exporters}">
 						<h:commandLink>
-							<p:graphicImage name="/img/pdf.png" width="24" style="right: 15px;position: absolute;" />
+							<p:graphicImage name="/img/pdf.png" width="24"
+								style="right: 15px;position: absolute;" />
 							<p:dataExporter type="pdf" target="tbl" fileName="produtos" />
 						</h:commandLink>
-					</f:facet>
-
-					<f:facet name="{paginatorTopLeft}">
-						<p:commandButton type="button" icon="fa fa-refresh" />
 					</f:facet>
 
 					<p:column sortBy="#{produto.nome}" headerText="Nome">
@@ -44,6 +42,10 @@
 
 					<p:column sortBy="#{produto.preco}" headerText="Preco (BRL)">
 						<h:outputText value="#{produto.preco}" />
+					</p:column>
+
+					<p:column>
+						<p:commandButton icon="ui-icon-search" action="#{produtoBean.updateProduto(produto)}" />
 					</p:column>
 
 				</p:dataTable>

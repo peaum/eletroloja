@@ -11,9 +11,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "tb_produto")
+
+@Table(name = "tb_produto", 
+	uniqueConstraints= @UniqueConstraint(columnNames={"nome","marca","modelo"})
+)
 public class Produto implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -23,13 +27,13 @@ public class Produto implements Serializable {
 	@Column(name = "id", updatable=false)
 	private Long id;
 	
-	@Column(name = "nome", length = 20, nullable = false, updatable=false)
+	@Column(name = "nome", length = 20, nullable = false)
 	private String nome;
 	
-	@Column(name = "marca", length = 20, nullable = false, updatable=false)
+	@Column(name = "marca", length = 20, nullable = false)
 	private String marca;
 
-	@Column(name = "modelo", length = 20, nullable = false, updatable=false)
+	@Column(name = "modelo", length = 20, nullable = false)
 	private String modelo;
 	
 	@Column(name = "preco", nullable = false, updatable=true)
@@ -102,9 +106,12 @@ public class Produto implements Serializable {
 			return false;
 		return true;
 	}
-
-	@Override
+	
+	public String getKey() {
+		return id.toString();
+	}
+	
 	public String toString() {
-		return nome + " - " + modelo + " (" + marca + ")";
+		return nome + " - " + modelo + " ( " + marca + ")";
 	}
 }

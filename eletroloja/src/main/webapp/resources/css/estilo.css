@@ -1,9 +1,6 @@
 body {
 	background: #f2f2f2;
-	background-size: 300px 100px;
-	background-image: url(/eletroloja/resources/img/background3.png);
 	background-repeat: no-repeat;
-	background-position: 40em 18em;
 }
 
 h1 {

@@ -11,6 +11,8 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.primefaces.event.SelectEvent;
+
 import br.com.fsma.loja.eletrodomesticos.modelo.dao.ProdutoDao;
 import br.com.fsma.loja.eletrodomesticos.modelo.negocio.Produto;
 import br.com.fsma.loja.eletrodomesticos.tx.Transacional;
@@ -30,8 +32,14 @@ public class ProdutoBean implements Serializable {
 	
 	private List<Produto> produtos = new ArrayList<>();
 	
+	private boolean disabled = false;
+	
 	public Produto getProduto() {
 		return this.produto;
+	}
+	
+	public void setProduto(Produto produto) {
+		this.produto = produto;
 	}
 	
 	public List<Produto> getProdutos() {
@@ -54,6 +62,7 @@ public class ProdutoBean implements Serializable {
 	}
 	
 	public String getCadproduto() {
+		disabled = false;
 		return "/view/insere/cad-produto.xhtml?faces-redirect=true";
 	}
 	
@@ -72,9 +81,23 @@ public class ProdutoBean implements Serializable {
 		return null;
 	}
 	
+	@Transacional
 	public String getListaproduto() {
 		produtos = produtoDao.listaTodos();
 		return "/view/lista/lista-produto.xhtml?faces-redirect=true";
 	}
 	
+	public String updateProduto(Produto produto) {
+		this.produto = produto;
+		disabled = true;
+		return "/view/insere/cad-produto.xhtml?faces-redirect=true";
+	}
+
+	public boolean isDisabled() {
+		return disabled;
+	}
+
+	public void setDisabled(boolean disabled) {
+		this.disabled = disabled;
+	}
 }

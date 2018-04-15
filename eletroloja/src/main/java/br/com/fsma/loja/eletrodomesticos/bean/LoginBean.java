@@ -39,7 +39,6 @@ public class LoginBean implements Serializable {
 
 	@PostConstruct
 	public void init() {
-//		System.out.println("LoginBean.init();");
 		usuario = (Usuario) session.getAttribute(USUARIO_LOGADO);
 		if (usuario == null) {
 			usuario = new Usuario();
