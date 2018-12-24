@@ -32,7 +32,65 @@ public class ProdutoBean implements Serializable {
 	
 	private List<Produto> produtos = new ArrayList<>();
 	
+	private String produtoId;
+
 	private boolean disabled = false;
+	
+	@PostConstruct
+	public void init() {
+		if(produto == null) {
+			this.produto = new Produto();
+		}
+	}
+	
+	public String getCadproduto() {
+		disabled = false;
+		return "/view/insere/cad-produto.xhtml?faces-redirect=true";
+	}
+	
+	public String updateProduto() {
+		return "/view/insere/cad-produto.xhtml?faces-redirect=true&includeViewParams=true";
+	}
+	
+	public void listener() {
+		if(produtoId != null) {
+			disabled = true;
+			produto = produtoDao.buscaPorId(Long.valueOf(produtoId));
+		}
+	}
+	
+	@Transacional
+	public String cadastra() throws Exception {
+		FacesContext context = FacesContext.getCurrentInstance();
+		if(produtoDao.existe(produto)) {
+			produtoDao.atualiza(produto);
+			setMessage("Produto atualizado com sucesso!");
+		} else {
+			produtoDao.adiciona(produto);
+			setMessage("Produto cadastrado com sucesso!");
+		}
+		context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso!", message));
+		produto = new Produto();
+		return null;
+	}
+	
+	@Transacional
+	public String getListaproduto() {
+		produtos = produtoDao.listaTodos();
+		return "/view/lista/lista-produto.xhtml?faces-redirect=true";
+	}
+	
+	public String getProdutoId() {
+		return produtoId;
+	}
+
+	public void setProdutoId(String produtoId) {
+		this.produtoId = produtoId;
+	}
+
+	public void setProdutos(List<Produto> produtos) {
+		this.produtos = produtos;
+	}
 	
 	public Produto getProduto() {
 		return this.produto;
@@ -53,45 +111,6 @@ public class ProdutoBean implements Serializable {
 	public void setMessage(String message) {
         this.message = message;
     }
-	
-	@PostConstruct
-	public void init() {
-		if(produto == null) {
-			this.produto = new Produto();
-		}
-	}
-	
-	public String getCadproduto() {
-		disabled = false;
-		return "/view/insere/cad-produto.xhtml?faces-redirect=true";
-	}
-	
-	@Transacional
-	public String cadastra() throws Exception {
-		FacesContext context = FacesContext.getCurrentInstance();
-		if(produtoDao.existe(produto)) {
-			setMessage("Produto já está cadastrado!");
-			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", message));
-		} else {
-			produtoDao.adiciona(produto);
-			setMessage("Produto cadastrado com sucesso!");
-			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso!", message));
-			produto = new Produto();
-		}
-		return null;
-	}
-	
-	@Transacional
-	public String getListaproduto() {
-		produtos = produtoDao.listaTodos();
-		return "/view/lista/lista-produto.xhtml?faces-redirect=true";
-	}
-	
-	public String updateProduto(Produto produto) {
-		this.produto = produto;
-		disabled = true;
-		return "/view/insere/cad-produto.xhtml?faces-redirect=true";
-	}
 
 	public boolean isDisabled() {
 		return disabled;

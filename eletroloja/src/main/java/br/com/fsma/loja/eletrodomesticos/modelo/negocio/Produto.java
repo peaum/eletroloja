@@ -14,7 +14,6 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 @Entity
-
 @Table(name = "tb_produto", 
 	uniqueConstraints= @UniqueConstraint(columnNames={"nome","marca","modelo"})
 )
@@ -111,7 +110,7 @@ public class Produto implements Serializable {
 		return id.toString();
 	}
 	
-	public String toString() {
-		return nome + " - " + modelo + " ( " + marca + ")";
+	public String asString() {
+		return nome + " - " + modelo + " (" + marca + ")";
 	}
 }

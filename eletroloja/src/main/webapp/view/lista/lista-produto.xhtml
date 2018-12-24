@@ -4,22 +4,17 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
-
 <h:body>
-
 	<ui:composition template="/view/template/template.xhtml">
 		<ui:define name="content">
-
 			<h:form>
 				<p:growl id="growl" showDetail="true" sticky="true" />
 				<h1>Lista de Produto</h1>
-				<p:dataTable id="tbl" selectionMode="single"
-					value="#{produtoBean.produtos}" var="produto"
-					selection="#{produtoBean.produto}" rows="10" paginator="true"
-					paginatorPosition="top" rowKey="#{produto.id}"
-					paginatorTemplate=" {CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {Exporters}"
-					rowsPerPageTemplate="5,10,15,25,50">
-
+				<p:dataTable id="tbl" value="#{produtoBean.produtos}" var="produto"
+					rows="10" paginator="true" paginatorPosition="top"
+					paginatorTemplate=" {CurrentPageReport} {FirstPageLink} {PreviousPageLink} 
+					{PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {Exporters}"
+					rowsPerPageTemplate="5,10,15,25,50" style="text-align: center;">
 					<f:facet name="{Exporters}">
 						<h:commandLink>
 							<p:graphicImage name="/img/pdf.png" width="24"
@@ -45,15 +40,17 @@
 					</p:column>
 
 					<p:column>
-						<p:commandButton icon="ui-icon-search" action="#{produtoBean.updateProduto(produto)}" />
+						<p:commandButton icon="ui-icon-search"
+							action="#{produtoBean.updateProduto}">
+							<f:metadata>
+								<f:viewParam id="produto_id" name="produtoId"
+									value="#{produto.id}" />
+							</f:metadata>
+						</p:commandButton>
 					</p:column>
-
 				</p:dataTable>
 			</h:form>
-
 		</ui:define>
 	</ui:composition>
-
 </h:body>
-
 </html>

@@ -30,6 +30,21 @@ public class Autorizador implements PhaseListener {
 			return;
 		}
 		
+		/*if(usuarioLogado != null) {
+			if(nomePagina.endsWith("/insere/cad-troca.xhtml)") ||
+				nomePagina.endsWith("/insere/cad-venda.xhtml)")) {
+				if(usuarioLogado.getRole().equals("vendedor") ||
+					usuarioLogado.getRole().equals("supervisor")) {
+						return;
+				} else {
+					NavigationHandler handler = context.getApplication().getNavigationHandler();
+					handler.handleNavigation(context, null, "/view/menu/menu.xhtml?faces-redirect=true");
+					context.renderResponse();
+				}
+			}
+			
+		}*/
+		
 		// Redirecionamento para login.xhtml
 		NavigationHandler handler = context.getApplication().getNavigationHandler();
 		handler.handleNavigation(context, null, "/view/login/login?faces-redirect=true");

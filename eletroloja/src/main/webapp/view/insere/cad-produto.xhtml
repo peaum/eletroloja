@@ -6,7 +6,10 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 <h:body>
-
+	<f:metadata>
+		<f:viewParam name="produtoId" value="#{produtoBean.produtoId}" />
+		<f:event listener="#{produtoBean.listener}" type="preRenderView"/>
+	</f:metadata>
 	<ui:composition template="/view/template/template.xhtml">
 		<ui:define name="content">
 
@@ -17,14 +20,17 @@
 					<p:panel header="Produto" style="width: 400px;">
 						<h:panelGrid columns="2">
 							<p:outputLabel value="Nome:" for="nome" />
-							<p:inputText disabled="#{produtoBean.disabled}" id="nome" required="true"
-								value="#{produtoBean.produto.nome}" style="width: 100%;" />
+							<p:inputText disabled="#{produtoBean.disabled}" id="nome"
+								required="true" value="#{produtoBean.produto.nome}"
+								style="width: 100%;" />
 							<p:outputLabel value="Marca:" for="marca" />
-							<p:inputText disabled="#{produtoBean.disabled}" id="marca" required="true"
-								value="#{produtoBean.produto.marca}" style="width: 100%;" />
-							<p:outputLabel dir="#{produtoBean.disabled}" value="Modelo:" for="modelo" />
-							<p:inputText id="modelo" required="true"
-								value="#{produtoBean.produto.modelo}" style="width: 100%;" />
+							<p:inputText disabled="#{produtoBean.disabled}" id="marca"
+								required="true" value="#{produtoBean.produto.marca}"
+								style="width: 100%;" />
+							<p:outputLabel value="Modelo:" for="modelo" />
+							<p:inputText disabled="#{produtoBean.disabled}" id="modelo"
+								required="true" value="#{produtoBean.produto.modelo}"
+								style="width: 100%;" />
 							<p:outputLabel value="Preco:" for="preco" />
 							<p:inputNumber id="preco" required="true"
 								value="#{produtoBean.produto.preco}" style="width: 100%;" />
@@ -38,7 +44,7 @@
 					</p:panel>
 				</div>
 			</h:form>
-			
+
 		</ui:define>
 	</ui:composition>
 

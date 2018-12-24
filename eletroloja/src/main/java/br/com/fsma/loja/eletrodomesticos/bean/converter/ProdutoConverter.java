@@ -1,11 +1,7 @@
 package br.com.fsma.loja.eletrodomesticos.bean.converter;
 
-import java.math.BigDecimal;
-import java.util.List;
-
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
-import javax.faces.component.UISelectItems;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
@@ -13,22 +9,14 @@ import javax.faces.convert.FacesConverter;
 
 import br.com.fsma.loja.eletrodomesticos.modelo.negocio.Produto;
 
-@FacesConverter("produtoConverter")
+@FacesConverter(forClass=Produto.class)
 public class ProdutoConverter implements Converter {
 
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {
 		if (value != null && value.trim().length() > 0) {
 			try {
-				String[] str = value.split("-");
-				Produto p = new Produto();
-				
-				p.setId(Long.valueOf(str[0]));
-				p.setNome(str[1]);
-				p.setModelo(str[2]);
-				p.setMarca(str[3]);
-				p.setPreco(new BigDecimal(str[4]));
-				return p;
+				return (Produto) component.getAttributes().get(value);
 			} catch (Exception e) {
 				e.printStackTrace();
 				throw new ConverterException(
@@ -41,9 +29,12 @@ public class ProdutoConverter implements Converter {
 	@Override
 	public String getAsString(FacesContext context, UIComponent component, Object value) {
 		try {
-			if (value != null) {
-				return ((Produto) value).getId().toString() + "-" + ((Produto) value).getNome() + "-"
-						+ ((Produto) value).getModelo() + "-" + ((Produto) value).getMarca()+"-"+((Produto) value).getPreco();
+			if (value instanceof Produto) {
+				Produto produto = (Produto) value;
+				if(produto != null && produto.getId() != null) {
+					component.getAttributes().put(produto.getId().toString(), produto);
+					return produto.getId().toString();
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

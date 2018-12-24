@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:body>
+
+	<ui:composition template="/view/template/template.xhtml">
+		<ui:define name="content">
+
+			<h:form>
+				<p:growl id="growl" showDetail="true" sticky="true" />
+				<h1>Lista de Clientes</h1>
+				<p:dataTable id="tbl" selectionMode="single"
+					value="#{vendaBean.clientes}" var="cliente"
+					selection="#{vendaBean.cliente}" rows="10" paginator="true"
+					paginatorPosition="top" rowKey="#{cliente.id}"
+					paginatorTemplate=" {CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {Exporters}"
+					rowsPerPageTemplate="5,10,15,25,50" style="text-align: center;">
+
+					<f:facet name="{Exporters}">
+						<h:commandLink>
+							<p:graphicImage name="/img/pdf.png" width="24"
+								style="right: 15px;position: absolute;" />
+							<p:dataExporter type="pdf" target="tbl" fileName="clientes" />
+						</h:commandLink>
+					</f:facet>
+
+					<p:column sortBy="#{cliente.cpf}" headerText="CPF">
+						<h:outputText value="#{cliente.cpf}" />
+					</p:column>
+
+					<p:column sortBy="#{cliente.nome}" headerText="Nome">
+						<h:outputText value="#{cliente.nome}" />
+					</p:column>
+
+					<p:column sortBy="#{cliente.endereco}" headerText="Endereço">
+						<h:outputText value="#{cliente.endereco}" />
+					</p:column>
+
+				</p:dataTable>
+			</h:form>
+
+		</ui:define>
+	</ui:composition>
+
+</h:body>
+
+</html>

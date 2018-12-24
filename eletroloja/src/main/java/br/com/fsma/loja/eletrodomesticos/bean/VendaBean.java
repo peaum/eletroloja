@@ -1,6 +1,7 @@
 package br.com.fsma.loja.eletrodomesticos.bean;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +35,8 @@ public class VendaBean implements Serializable {
 	private List<Venda> vendas = new ArrayList<>();
 	private Venda venda;
 	private Cliente cliente;
+	private boolean disabled = false; 
+	private String vendaId;
 
 	@Inject
 	private VendaDao vendaDao;
@@ -47,11 +50,10 @@ public class VendaBean implements Serializable {
 	private List<Item> itens = new ArrayList<>();
 	private Item item;
 	private List<Produto> produtos = new ArrayList<>();
-	private Produto produto;
 	private boolean nvCliente = false;
 
-	private boolean skip;
 
+	@Transacional
 	@PostConstruct
 	public void init() {
 		if (venda == null) {
@@ -71,6 +73,13 @@ public class VendaBean implements Serializable {
 	public String getCadVenda() {
 		return "/view/insere/cad-venda.xhtml?faces-redirect=true";
 	}
+	
+	public void listener() {
+		if(vendaId != null) {
+			disabled = true;
+			venda = vendaDao.buscaPorId(Long.valueOf(vendaId));
+		}
+	}
 
 	@Transacional
 	public void buscaCliente() {
@@ -87,7 +96,7 @@ public class VendaBean implements Serializable {
 		}
 	}
 
-	public void insereItem() {
+	public void insereItem() throws Exception {
 		Item it = itens.parallelStream().filter(i -> i.getProduto().getId().equals(item.getProduto().getId()))
 				.findFirst().orElse(null);
 		if (it == null) {
@@ -111,17 +120,24 @@ public class VendaBean implements Serializable {
 		} else {
 			updateCliente();
 		}
+		itens.parallelStream().forEach(
+				i -> venda.setValorTotal(venda.getValorTotal().add(
+						i.getProduto().getPreco().multiply(
+								new BigDecimal(i.getQuantidade()))))
+			);
 		cadastraVenda();
 
-		/*
-		 * if (clienteDao.naoExiste(cliente)) { nvCliente = true; } else {
-		 * cadastraVenda(); }
-		 */
 		cliente = new Cliente();
 		venda = new Venda();
 		itens = new ArrayList<>();
 		setMessage("Sua Venda foi realiza com sucesso!");
 		context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso!", message));
+	}
+	
+	@Transacional
+	public String getListaVenda() {
+		vendas = vendaDao.listaTodos();
+		return "/view/lista/lista-venda.xhtml?faces-redirect=true";
 	}
 
 	private void updateCliente() {
@@ -130,6 +146,7 @@ public class VendaBean implements Serializable {
 
 	@Transacional
 	public void cadastraCliente() {
+		this.disabled = false;
 		clienteDao.adiciona(cliente);
 	}
 
@@ -139,7 +156,23 @@ public class VendaBean implements Serializable {
 		venda.setDataVenda(LocalDate.now());
 		vendaDao.adiciona(venda);
 		itens.parallelStream().forEach(i -> i.setVenda(venda));
-		itens.parallelStream().forEach(i -> itemDao.adiciona(i));
+		for(Item i: itens) {
+			itemDao.adiciona(i);
+		}
+	}
+	
+	public String updateProduto() {
+		return "/view/insere/cad-produto.xhtml?faces-redirect=true&includeViewParams=true";
+	}
+	@Transacional
+	public String detalhaVenda() {
+		return "/view/insere/cad-venda.xhtml?faces-redirect=true&includeViewParams=true";
+	}
+	
+	@Transacional
+	public String getListaCliente() {
+		clientes = clienteDao.listaTodos();
+		return "/view/lista/lista-cliente.xhtml?faces-redirect=true";
 	}
 
 	public String getMessage() {
@@ -190,14 +223,6 @@ public class VendaBean implements Serializable {
 		this.item = item;
 	}
 
-	public boolean isSkip() {
-		return skip;
-	}
-
-	public void setSkip(boolean skip) {
-		this.skip = skip;
-	}
-
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
@@ -214,20 +239,28 @@ public class VendaBean implements Serializable {
 		this.produtos = produtos;
 	}
 
-	public Produto getProduto() {
-		return produto;
-	}
-
-	public void setProduto(Produto produto) {
-		this.produto = produto;
-	}
-
 	public boolean isNvCliente() {
 		return nvCliente;
 	}
 
 	public void setNvCliente(boolean nvCliente) {
 		this.nvCliente = nvCliente;
+	}
+
+	public boolean isDisabled() {
+		return disabled;
+	}
+
+	public void setDisabled(boolean disabled) {
+		this.disabled = disabled;
+	}
+
+	public String getVendaId() {
+		return vendaId;
+	}
+
+	public void setVendaId(String vendaId) {
+		this.vendaId = vendaId;
 	}
 
 }

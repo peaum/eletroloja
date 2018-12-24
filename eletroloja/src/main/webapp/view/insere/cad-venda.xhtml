@@ -6,7 +6,10 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 <h:body>
-
+	<f:metadata>
+		<f:viewParam name="vendaId" value="#{vendaBean.vendaId}" />
+		<f:event listener="#{vendaBean.listener}" type="preRenderView"/>
+	</f:metadata>
 	<ui:composition template="/view/template/template.xhtml">
 		<ui:define name="content">
 
@@ -64,13 +67,12 @@
 					resizable="false" modal="true" showEffect="fade" hideEffect="fade">
 					<h:panelGrid columns="2" cellpadding="5">
 						<h:outputLabel for="produtos" value="Produto: " />
-						<p:selectOneMenu id="produtos" value="#{vendaBean.item.produto}" converter="produtoConverter" 
+						<p:selectOneMenu id="produtos" value="#{vendaBean.item.produto}"
 							effect="fade" var="p" filter="true" filterMatchMode="contains">
 							<f:selectItems value="#{vendaBean.produtos}" var="produto"
-								itemLabel="#{produto}" 
-								itemValue="#{p}" />
+								itemLabel="#{produto.asString()}" itemValue="#{produto}" />
 							<p:column>
-								<h:outputText value="#{p}" />
+								<h:outputText value="#{p.asString()}" />
 							</p:column>
 						</p:selectOneMenu>
 						<h:outputLabel value="Qtd: " for="qtd" />
@@ -85,7 +87,6 @@
 				<p:dialog header="Novo Cliente" widgetVar="dlgc" height="150px"
 					modal="true" showEffect="fade" hideEffect="fade" resizable="false"
 					visible="#{vendaBean.nvCliente}">
-					
 				</p:dialog>
 			</h:form>
 		</ui:define>

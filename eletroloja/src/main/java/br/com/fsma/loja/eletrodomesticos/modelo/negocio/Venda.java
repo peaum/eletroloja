@@ -1,6 +1,7 @@
 package br.com.fsma.loja.eletrodomesticos.modelo.negocio;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +30,9 @@ public class Venda implements Serializable {
 
 	@Column(name = "data_venda", nullable = false, updatable=false)
 	private LocalDate dataVenda;
+	
+	@Column(name = "valor_total")
+	private BigDecimal valorTotal = new BigDecimal(0.0);
 	
 	@ManyToOne
 	@JoinColumn(name = "cliente_id", nullable=false, updatable=false)
@@ -62,6 +66,30 @@ public class Venda implements Serializable {
 
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
+	}
+
+	public BigDecimal getValorTotal() {
+		return valorTotal;
+	}
+
+	public void setValorTotal(BigDecimal valorTotal) {
+		this.valorTotal = valorTotal;
+	}
+
+	public Troca getTroca() {
+		return troca;
+	}
+
+	public void setTroca(Troca troca) {
+		this.troca = troca;
+	}
+
+	public List<Item> getItens() {
+		return items;
+	}
+
+	public void setItems(List<Item> items) {
+		this.items = items;
 	}
 
 	@Override
